@@ -922,7 +922,7 @@ class Builder extends BaseBuilder
      *
      * @return array
      */
-    protected function compileWheres(): array
+    public function compileWheres(): array
     {
         // The wheres to compile.
         $wheres = $this->wheres ?: [];
