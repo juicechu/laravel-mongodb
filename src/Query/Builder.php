@@ -1146,18 +1146,20 @@ class Builder extends BaseBuilder
     protected function compileWhereBetween(array $where): array
     {
         extract($where);
+        $min = is_array($values) ? reset($values) : $values[0];
 
+        $max = is_array($values) ? end($values) : $values[1];
         if ($not) {
             return [
                 '$or' => [
                     [
                         $column => [
-                            '$lte' => $values[0],
+                            '$lte' => $min,
                         ],
                     ],
                     [
                         $column => [
-                            '$gte' => $values[1],
+                            '$gte' => $max,
                         ],
                     ],
                 ],
@@ -1166,8 +1168,8 @@ class Builder extends BaseBuilder
 
         return [
             $column => [
-                '$gte' => $values[0],
-                '$lte' => $values[1],
+                '$gte' => $min,
+                '$lte' => $max,
             ],
         ];
     }
